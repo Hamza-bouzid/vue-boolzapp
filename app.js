@@ -5,7 +5,6 @@ let app = new Vue({
     searchinput: "",
     sendmessage: "",
     staScrivendo: "",
-    show: "",
     contacts: [
       {
         name: "Zlatan",
@@ -13,16 +12,19 @@ let app = new Vue({
         visible: true,
         messages: [
           {
+            PopUpActive: false,
             date: "10/01/2020 15:30:55",
             text: "Hai portato a spasso il cane?",
             status: "sent",
           },
           {
+            PopUpActive: false,
             date: "10/01/2020 15:50:00",
             text: "Ricordati di dargli da mangiare",
             status: "sent",
           },
           {
+            PopUpActive: false,
             date: "10/01/2020 16:15:22",
             text: "Tutto fatto!",
             status: "received",
@@ -35,16 +37,19 @@ let app = new Vue({
         visible: true,
         messages: [
           {
+            PopUpActive: false,
             date: "20/03/2020 16:30:00",
             text: "Ciao come stai?",
             status: "sent",
           },
           {
+            PopUpActive: false,
             date: "20/03/2020 16:30:55",
             text: "Bene grazie! Stasera ci vediamo?",
             status: "received",
           },
           {
+            PopUpActive: false,
             date: "20/03/2020 16:35:00",
             text: "Mi piacerebbe ma devo andare a fare la spesa.",
             status: "sent",
@@ -57,16 +62,19 @@ let app = new Vue({
         visible: true,
         messages: [
           {
+            PopUpActive: false,
             date: "28/03/2020 10:10:40",
             text: "La Marianna va in campagna",
             status: "received",
           },
           {
+            PopUpActive: false,
             date: "28/03/2020 10:20:10",
             text: "Sicuro di non aver sbagliato chat?",
             status: "sent",
           },
           {
+            PopUpActive: false,
             date: "28/03/2020 16:15:22",
             text: "Ah scusa!",
             status: "received",
@@ -79,11 +87,13 @@ let app = new Vue({
         visible: true,
         messages: [
           {
+            PopUpActive: false,
             date: "10/01/2020 15:30:55",
             text: "Lo sai che ha aperto una nuova pizzeria?",
             status: "sent",
           },
           {
+            PopUpActive: false,
             date: "10/01/2020 15:50:00",
             text: "Si, ma preferirei andare al cinema",
             status: "received",
@@ -103,25 +113,18 @@ let app = new Vue({
       this.active = indice;
     },
 
-    messageCheck: function (indice) {
+    messageCheck: function (indice, classe) {
       if (this.contacts[this.active].messages[indice].status == "received") {
-        return "message-recive";
+        return classe + "recive";
       } else {
-        return "message-send";
-      }
-    },
-
-    messageCheckTwo: function (indice) {
-      if (this.contacts[this.active].messages[indice].status == "received") {
-        return "recive";
-      } else {
-        return "send";
+        return classe + "send";
       }
     },
 
     sendMessage: function () {
       const newMessageSent = {
-        date: "28/03/2020 10:10:40",
+        PopUpActive: false,
+        date: dayjs().format("DD/MM/YYYY hh:mm:ss"),
         text: this.sendmessage,
         status: "sent",
       };
@@ -140,7 +143,8 @@ let app = new Vue({
 
     reciveMessage: function () {
       const newMessageRecived = {
-        date: "28/03/2020 10:10:40",
+        PopUpActive: false,
+        date: dayjs().format("DD/MM/YYYY hh:mm:ss"),
         text: "OK",
         status: "received",
       };
@@ -148,9 +152,11 @@ let app = new Vue({
     },
 
     getLastText: function (indice) {
-      const lasttext = this.contacts[indice].messages[this.contacts[indice].messages.length - 1].text;
+      return this.contacts[indice].messages[this.contacts[indice].messages.length - 1].text;
+    },
 
-      return lasttext;
+    getLastDate: function (indice) {
+      return this.contacts[indice].messages[this.contacts[indice].messages.length - 1].date;
     },
 
     changeIcon: function (classe) {
@@ -162,13 +168,14 @@ let app = new Vue({
     StaScrivendo: function () {
       this.staScrivendo = "";
     },
-    /*
-    showPopUp: function (index) {
-      if (this.active == index) {
-        return this.show = "hb_display-block";
-      }
+
+    showPopUp: function (index, bol) {
+      this.contacts[this.active].messages[index].PopUpActive = bol;
     },
-    */
+
+    deleteMessage: function (index) {
+      this.contacts[this.active].messages.splice(index, 1);
+    },
   },
 
   computed: {
