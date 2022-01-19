@@ -1,0 +1,303 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #131b20d2;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+header {
+  background-color: #00bfa5;
+  color: #fff;
+  padding: 5px;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 20px;
+}
+
+/**************
+Panello
+**************/
+
+#app {
+  height: 100vh;
+}
+
+.hb_left-pannel,
+.hb_right-pannel {
+  background-color: #2a2f32;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hb_left-pannel {
+  border-right: 1px solid rgb(128, 128, 128);
+}
+
+.hb_left-pannel img,
+.hb_right-pannel_details img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.hb_left-pannel_icons i,
+.hb_rigth-pannel_icons {
+  color: #b1b3b5;
+  font-size: 20px;
+  margin: 12px;
+  cursor: pointer;
+  position: relative;
+}
+/*
+.hb_vertical-line {
+  background-color: rgb(128, 128, 128);
+  width: 1px;
+  height: 25px;
+  display: inline-block;
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  cursor:initial !important;
+}
+*/
+
+.hb_right-pannel_details span {
+  color: #fff;
+  margin-left: 10px;
+}
+
+/**************
+Chat Menu
+**************/
+.content-left {
+  background-color: #131b20;
+  border-right: 1px solid rgb(128, 128, 128);
+  padding: 0px;
+  min-height: 650px;
+}
+
+.search-bar {
+  padding: 10px 0px;
+  border-bottom: 1px solid rgb(128, 128, 128);
+  padding: 10px;
+}
+
+.search-bar div {
+  width: 100%;
+  background-color: #323739;
+  border-radius: 20px;
+  padding: 0px 10px;
+}
+
+.search-bar input {
+  width: 80%;
+  background-color: #323739;
+  border: none;
+  padding: 5px;
+  color: #fff;
+  outline: none;
+}
+
+.search-bar i {
+  color: #b1b3b5;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.search-bar i:hover {
+  color: #fff;
+}
+
+.chat {
+  padding: 12px 10px;
+  color: #e2e2e3be;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(128, 128, 128);
+  cursor: pointer;
+}
+
+.chat:hover {
+  background-color: #2d3134;
+}
+
+.chat-content {
+  display: flex;
+  align-items: center;
+}
+
+.chat-details {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.chat-details p {
+  margin: 0px;
+}
+
+.chat-details span {
+  font-size: 20px;
+}
+
+.chat img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.message-date {
+  font-size: 10px;
+}
+
+/**************
+Messages
+**************/
+
+.content-rigth {
+  background: url("img/wall.webp");
+  background-size: contain;
+  padding: 10px 50px;
+  max-height: 650px;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.messages {
+  color: #fff;
+}
+
+.recive,
+.send {
+  display: inline-block;
+  padding: 5px 10px;
+  padding-right: 30px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.recive span,
+.send span {
+  font-size: 10px;
+  color: #b1b3b5;
+  display: block;
+  text-align: right;
+  margin-right: -25px;
+}
+
+.message-send {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.recive {
+  background-color: #262d31;
+  border-top-left-radius: 0px;
+}
+
+.send {
+  background-color: #056162;
+  display: inline-block;
+  border-top-right-radius: 0px;
+}
+
+.check {
+  margin-left: 2px;
+  cursor: initial;
+  color: rgb(35, 129, 192);
+}
+
+.hb_display-none {
+  display: none;
+}
+.hb_display-block {
+  display: block !important;
+}
+.hb_display-inline {
+  display: inline-block;
+}
+
+.send-message {
+  width: 100%;
+  padding: 15px;
+  background-color: #1e2428;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.send-message div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.send-message input {
+  background-color: #33383b;
+  color: #fff;
+  border-radius: 20px;
+  padding: 8px 20px;
+  border: none;
+  width: 80%;
+  outline: none;
+}
+
+.send-message i {
+  color: #b1b3b5;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.send-message i:hover {
+  color: #fff;
+}
+
+.arrow-down {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.send:hover .arrow-down,
+.recive:hover .arrow-down {
+  visibility: visible;
+}
+
+.pop-up {
+  background-color: #2a2f32;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  display: none;
+}
+
+.pop-up ul {
+  padding: 0px;
+}
+
+.pop-up li {
+  list-style: none;
+  padding: 10px;
+  width: 200px;
+  cursor: pointer;
+}
+.pop-up li:hover {
+  background-color: #20272b;
+}

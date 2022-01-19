@@ -13,8 +13,95 @@
     <title>Boolzapp</title>
   </head>
   <body>
-    <div id="app">
-        
+    <div id="app" class="container">
+      <!--HEADER-->
+      <header>
+        <div class="heading">
+          <h1>Boolzapp</h1>
+        </div>
+      </header>
+      <!--MAIN-->
+      <main>
+        <div class="container">
+          <!--Panello-->
+          <div class="row">
+            <div class="col-4 hb_left-pannel">
+              <img src="img/aggiornamento-rls.png" />
+              <div class="hb_left-pannel_icons">
+                <i class="fas fa-circle-notch"></i>
+                <i class="fas fa-plus"></i>
+                <i class="fas fa-ellipsis-h"></i>
+              </div>
+            </div>
+            <div class="col-8 hb_right-pannel">
+              <div class="hb_right-pannel_details">
+                <img :src="contacts[active].avatar" />
+                <span>{{contacts[active].name}}</span>
+                <span class="hb_display-none" :class="staScrivendo">sta scrivendo...</span>
+              </div>
+              <div class="hb_left-pannel_icons">
+                <i class="fas fa-video"></i>
+                <i class="fas fa-phone-alt"></i>
+                <!--<i class="hb_vertical-line"></i>-->
+                <i class="fas fa-search"></i>
+                <i class="fas fa-ellipsis-h"></i>
+              </div>
+            </div>
+          </div>
+
+          <!--Panello-->
+          <div class="row">
+            <div class="col-4 content-left">
+              <div class="search-bar">
+                <div>
+                  <i class="fas fa-search"></i>
+                  <input type="text" placeholder="Cerca o inizia una nuova chat" v-model="searchinput" />
+                </div>
+              </div>
+
+              <div class="chats">
+                <div class="chat" v-for="(elemento, indice) in filteredChat" @click="showChat(indice), changeChat(indice)">
+                  <div class="chat-content">
+                    <img :src="elemento.avatar" />
+                    <div class="chat-details">
+                      <span>{{elemento.name}}</span>
+                      <p class="text-break">{{getLastText(indice)}}</p>
+                    </div>
+                  </div>
+                  <span class="message-date">{{elemento.messages[0].date}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-8 content-rigth">
+              <div class="messages" v-for="(elem, index) in contacts[active].messages">
+                <div :class="messageCheck(index)">
+                  <div :class="messageCheckTwo(index)">
+                    {{contacts[active].messages[index].text}}
+                    <span>{{contacts[active].messages[index].date}}</span>
+                    <i class="fas fa-chevron-down arrow-down"></i>
+                    <div class="pop-up" :class="show">
+                      <ul>
+                        <li>Info messaggio</li>
+                        <li>Elimina messaggio</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="send-message">
+                <div>
+                  <i class="far fa-grin-alt"></i>
+                  <i class="fas fa-paperclip"></i>
+                  <input type="text" placeholder="Scrivi un messaggio" v-model="sendmessage" @keyup.enter="sendMessage" />
+                  <i class="fas fa-microphone" :class="changeIcon('none')"></i>
+                  <i class="fas fa-paper-plane hb_display-none" :class="changeIcon('block')" @click="sendMessage"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
