@@ -1,7 +1,7 @@
 let app = new Vue({
   el: "#app",
   data: {
-    active: 0,
+    active: null,
     searchinput: "",
     sendmessage: "",
     staScrivendo: "",
@@ -109,10 +109,6 @@ let app = new Vue({
       }
     },
 
-    changeChat: function (indice) {
-      this.active = indice;
-    },
-
     messageCheck: function (indice, classe) {
       if (this.contacts[this.active].messages[indice].status == "received") {
         return classe + "recive";
@@ -131,7 +127,7 @@ let app = new Vue({
       if (!this.sendmessage == "") {
         this.contacts[this.active].messages.push(newMessageSent);
 
-        this.staScrivendo = "hb_display-inline";
+        this.staScrivendo = "Sta scrivendo...";
 
         this.sendmessage = "";
 
@@ -151,14 +147,6 @@ let app = new Vue({
       this.contacts[this.active].messages.push(newMessageRecived);
     },
 
-    getLastText: function (indice) {
-      return this.contacts[indice].messages[this.contacts[indice].messages.length - 1].text;
-    },
-
-    getLastDate: function (indice) {
-      return this.contacts[indice].messages[this.contacts[indice].messages.length - 1].date;
-    },
-
     changeIcon: function (classe) {
       if (!this.sendmessage == "") {
         return "hb_display-" + classe;
@@ -175,6 +163,7 @@ let app = new Vue({
 
     deleteMessage: function (index) {
       this.contacts[this.active].messages.splice(index, 1);
+      console.log( this.contacts[this.active].messages[index])
     },
   },
 

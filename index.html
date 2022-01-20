@@ -14,7 +14,7 @@
   </head>
   <body>
     <div id="app" class="hb_container">
-      <div class="container">
+      <div class="container hb_shadow">
         <!--HEADER-->
         <header>
           <div class="heading">
@@ -35,12 +35,17 @@
                 </div>
               </div>
               <div class="col-8 hb_right-pannel">
-                <div class="hb_right-pannel_details">
-                  <img :src="contacts[active].avatar" />
-                  <span>{{contacts[active].name}}</span>
-                  <span class="hb_display-none" :class="staScrivendo">sta scrivendo...</span>
+                <div v-if="active != null">
+                  <div class="hb_right-pannel_details">
+                    <img :src="contacts[active].avatar" />
+                    <div>
+                      <span>{{contacts[active].name}}</span>
+                      <p v-if="staScrivendo != ''">{{staScrivendo}}</p>
+                      <p v-else>Ultimo acesso: {{contacts[active].messages.at(-1).date}}</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="hb_left-pannel_icons">
+                <div class="hb_rigth-pannel_icons">
                   <i class="fas fa-video"></i>
                   <i class="fas fa-phone-alt"></i>
                   <!--<i class="hb_vertical-line"></i>-->
@@ -61,42 +66,47 @@
                 </div>
 
                 <div class="chats">
-                  <div class="chat" v-for="(elemento, indice) in filteredChat" @click="showChat(indice), changeChat(indice)">
+                  <div class="chat" v-for="(elemento, indice) in filteredChat" @click="showChat(indice), active = indice">
                     <div class="chat-content">
                       <img :src="elemento.avatar" />
                       <div class="chat-details">
                         <span>{{elemento.name}}</span>
-                        <p class="text-break">{{getLastText(indice)}}</p>
+                        <p class="text-break">{{elemento.messages.at(-1).text}}</p>
                       </div>
                     </div>
-                    <span class="message-date">{{getLastDate(indice)}}</span>
+                    <span class="message-date">{{elemento.messages.at(-1).date}}</span>
                   </div>
                 </div>
               </div>
               <div class="col-8 content-rigth">
-                <div class="messages" v-for="(elem, index) in contacts[active].messages">
-                  <div :class="messageCheck(index, 'message')">
-                    <div class="text-break" :class="messageCheck(index, '')" @mouseleave="showPopUp(index, false)">
-                      {{contacts[active].messages[index].text}}
-                      <span>{{contacts[active].messages[index].date}}</span>
-                      <i class="fas fa-chevron-down arrow-down" @mouseover="showPopUp(index, true)"></i>
-                      <div class="pop-up" :class="{block:contacts[active].messages[index].PopUpActive}">
-                        <ul>
-                          <li>Info messaggio</li>
-                          <li @click="deleteMessage(index)">Elimina messaggio</li>
-                        </ul>
+                <div id="scrollbar-style" class="content-rigth-messages">
+                  <div v-if="active != null">
+                    <div class="messages" v-for="(elem, index) in contacts[active].messages">
+                      <div :class="messageCheck(index, 'message')">
+                        <div class="text-break" :class="messageCheck(index, '')" @mouseleave="showPopUp(index, false)">
+                          {{contacts[active].messages[index].text}}
+                          <span>{{contacts[active].messages[index].date}}</span>
+                          <i class="fas fa-chevron-down arrow-down" @mouseover="showPopUp(index, true)"></i>
+                          <div class="pop-up" :class="{block:contacts[active].messages[index].PopUpActive}">
+                            <ul>
+                              <li>Info messaggio</li>
+                              <li @click="deleteMessage(index, elem)">Elimina messaggio</li>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="send-message">
-                  <div>
-                    <i class="far fa-grin-alt"></i>
-                    <i class="fas fa-paperclip"></i>
-                    <input type="text" placeholder="Scrivi un messaggio" v-model="sendmessage" @keyup.enter="sendMessage" />
-                    <i class="fas fa-microphone" :class="changeIcon('none')"></i>
-                    <i class="fas fa-paper-plane hb_display-none" :class="changeIcon('block')" @click="sendMessage"></i>
+                <div v-if="active != null">
+                  <div class="send-message">
+                    <div>
+                      <i class="far fa-grin-alt"></i>
+                      <i class="fas fa-paperclip"></i>
+                      <input type="text" placeholder="Scrivi un messaggio" v-model="sendmessage" @keyup.enter="sendMessage" />
+                      <i class="fas fa-microphone" :class="changeIcon('none')"></i>
+                      <i class="fas fa-paper-plane hb_display-none" :class="changeIcon('block')" @click="sendMessage"></i>
+                    </div>
                   </div>
                 </div>
               </div>
