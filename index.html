@@ -90,7 +90,7 @@
                           <div class="pop-up" :class="{block:contacts[active].messages[index].PopUpActive}">
                             <ul>
                               <li>Info messaggio</li>
-                              <li @click="deleteMessage(index, elem)">Elimina messaggio</li>
+                              <li @click="deleteMessage(index)">Elimina messaggio</li>
                             </ul>
                           </div>
                         </div>
@@ -98,15 +98,14 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="active != null">
-                  <div class="send-message">
-                    <div>
-                      <i class="far fa-grin-alt"></i>
-                      <i class="fas fa-paperclip"></i>
-                      <input type="text" placeholder="Scrivi un messaggio" v-model="sendmessage" @keyup.enter="sendMessage" />
-                      <i class="fas fa-microphone" :class="changeIcon('none')"></i>
-                      <i class="fas fa-paper-plane hb_display-none" :class="changeIcon('block')" @click="sendMessage"></i>
-                    </div>
+
+                <div class="send-message">
+                  <div>
+                    <i class="far fa-grin-alt"></i>
+                    <i class="fas fa-paperclip"></i>
+                    <input type="text" placeholder="Scrivi un messaggio" v-model="sendmessage" @keyup.enter="sendMessage" />
+                    <i class="fas fa-microphone" :class="changeIcon('none')"></i>
+                    <i class="fas fa-paper-plane hb_display-none" :class="changeIcon('block')" @click="sendMessage"></i>
                   </div>
                 </div>
               </div>

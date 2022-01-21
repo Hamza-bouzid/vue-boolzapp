@@ -205,9 +205,10 @@ Messages
 
 .content-rigth-messages {
   background: url("img/wall.webp");
-  height: 100%;
   background-size: contain;
+  height: 100%;
   padding: 10px 50px;
+  max-height: calc(100% - 70px);
   position: relative;
   overflow-y: auto;
 }

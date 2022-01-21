@@ -5,6 +5,7 @@ let app = new Vue({
     searchinput: "",
     sendmessage: "",
     staScrivendo: "",
+    risposte: ["OK", "Va bene", "Ci vediamo domani", "Ciao"],
     contacts: [
       {
         name: "Zlatan",
@@ -131,20 +132,27 @@ let app = new Vue({
 
         this.sendmessage = "";
 
-        setTimeout(this.StaScrivendo, 2000);
+        const indiceContatto = this.active;
 
-        setTimeout(this.reciveMessage, 2000);
+        setTimeout(() => {
+          this.staScrivendo = "";
+        }, 2000);
+
+        setTimeout(() => {
+          this.reciveMessage(indiceContatto);
+        }, 2000);
       }
     },
 
-    reciveMessage: function () {
+    reciveMessage: function (indice) {
+      const randomMessage = this.risposte[Math.floor(Math.random() * this.risposte.length)];
       const newMessageRecived = {
         PopUpActive: false,
         date: dayjs().format("DD/MM/YYYY hh:mm:ss"),
-        text: "OK",
+        text: randomMessage,
         status: "received",
       };
-      this.contacts[this.active].messages.push(newMessageRecived);
+      this.contacts[indice].messages.push(newMessageRecived);
     },
 
     changeIcon: function (classe) {
@@ -153,17 +161,12 @@ let app = new Vue({
       }
     },
 
-    StaScrivendo: function () {
-      this.staScrivendo = "";
-    },
-
     showPopUp: function (index, bol) {
       this.contacts[this.active].messages[index].PopUpActive = bol;
     },
 
     deleteMessage: function (index) {
       this.contacts[this.active].messages.splice(index, 1);
-      console.log( this.contacts[this.active].messages[index])
     },
   },
 
@@ -173,5 +176,10 @@ let app = new Vue({
         return chat.name.toLowerCase().match(this.searchinput);
       });
     },
+  },
+
+  updated: function () {
+    const box = document.querySelector(".content-rigth-messages");
+    box.scrollTop = box.scrollHeight;
   },
 });
