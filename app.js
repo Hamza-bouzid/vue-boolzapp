@@ -168,6 +168,11 @@ let app = new Vue({
     deleteMessage: function (index) {
       this.contacts[this.active].messages.splice(index, 1);
     },
+
+    autoScroll: function () {
+      const box = document.querySelector(".content-rigth-messages");
+      box.scrollTop = box.scrollHeight;
+    },
   },
 
   computed: {
@@ -179,7 +184,6 @@ let app = new Vue({
   },
 
   updated: function () {
-    const box = document.querySelector(".content-rigth-messages");
-    box.scrollTop = box.scrollHeight;
+    this.autoScroll();
   },
 });
