@@ -4,7 +4,10 @@ let app = new Vue({
     active: null,
     searchinput: "",
     sendmessage: "",
+    newChatPopup: false,
     staScrivendo: "",
+    newChatName: "",
+    newChatImage: "",
     risposte: ["OK", "Va bene", "Ci vediamo domani", "Ciao"],
     contacts: [
       {
@@ -104,12 +107,6 @@ let app = new Vue({
     ],
   },
   methods: {
-    showChat: function (indice, classe) {
-      if (indice == this.active) {
-        return classe;
-      }
-    },
-
     messageCheck: function (indice, classe) {
       if (this.contacts[this.active].messages[indice].status == "received") {
         return classe + "recive";
@@ -121,11 +118,12 @@ let app = new Vue({
     sendMessage: function () {
       const newMessageSent = {
         PopUpActive: false,
-        date: dayjs().format("DD/MM/YYYY hh:mm:ss"),
+        date: dayjs().format("hh:mm"),
         text: this.sendmessage,
         status: "sent",
       };
-      if (!this.sendmessage == "") {
+
+      if (!this.sendmessage.replace(/ /g, "") == "") {
         this.contacts[this.active].messages.push(newMessageSent);
 
         this.staScrivendo = "Sta scrivendo...";
@@ -135,8 +133,12 @@ let app = new Vue({
         const indiceContatto = this.active;
 
         setTimeout(() => {
-          this.staScrivendo = "";
+          this.staScrivendo = "online";
         }, 2000);
+
+        setTimeout(() => {
+          this.staScrivendo = "";
+        }, 3500);
 
         setTimeout(() => {
           this.reciveMessage(indiceContatto);
@@ -148,11 +150,42 @@ let app = new Vue({
       const randomMessage = this.risposte[Math.floor(Math.random() * this.risposte.length)];
       const newMessageRecived = {
         PopUpActive: false,
-        date: dayjs().format("DD/MM/YYYY hh:mm:ss"),
+        date: dayjs().format("hh:mm"),
         text: randomMessage,
         status: "received",
       };
       this.contacts[indice].messages.push(newMessageRecived);
+    },
+
+    newChat: function () {
+      if (!this.newChatName.replace(/ /g, "") == "") {
+        if (this.newChatImage.endsWith(".jpg") || this.newChatImage.endsWith(".jpeg") || this.newChatImage.endsWith(".png")) {
+          this.contacts.push({
+            name: this.newChatName,
+            avatar: this.newChatImage,
+            visible: true,
+            messages: [
+              {
+                date: dayjs().format("hh:mm"),
+              },
+            ],
+          });
+        } else {
+          this.contacts.push({
+            name: this.newChatName,
+            avatar: "img/avatar-png-green.jpg",
+            visible: true,
+            messages: [
+              {
+                date: dayjs().format("hh:mm"),
+              },
+            ],
+          });
+        }
+
+        this.newChatName = "";
+        this.newChatImage = "";
+      }
     },
 
     changeIcon: function (classe) {
@@ -167,18 +200,20 @@ let app = new Vue({
 
     deleteMessage: function (index) {
       this.contacts[this.active].messages.splice(index, 1);
+      console.log(index);
     },
 
     autoScroll: function () {
       const box = document.querySelector(".content-rigth-messages");
       box.scrollTop = box.scrollHeight;
     },
-  },
+    pop: function (bol) {
+      this.newChatPopup = bol;
+    },
 
-  computed: {
-    filteredChat: function () {
-      return this.contacts.filter((chat) => {
-        return chat.name.toLowerCase().match(this.searchinput);
+    filterChat: function () {
+      this.contacts.forEach((element) => {
+        element.visible = element.name.toLowerCase().includes(this.searchinput);
       });
     },
   },
