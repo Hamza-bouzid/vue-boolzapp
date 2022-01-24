@@ -199,6 +199,7 @@ let app = new Vue({
       const box = document.querySelector(".content-rigth-messages");
       box.scrollTop = box.scrollHeight;
     },
+
     pop: function (bol) {
       this.newChatPopup = bol;
     },
@@ -209,8 +210,8 @@ let app = new Vue({
       });
     },
 
-    deleteChat: function (index) {
-      this.contacts[this.active].splice(index, 1);
+    deleteChat: function () {
+      this.contacts.splice(this.active, 1);
     },
   },
 

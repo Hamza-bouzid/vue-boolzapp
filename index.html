@@ -15,6 +15,7 @@
   <body>
     <div id="app" class="hb_container">
       <div class="container hb_shadow">
+        <!--New Chat PopUP-->
         <div class="new-chat" :class="{displayflex:newChatPopup == true}">
           <div class="new-chat-box">
             <div class="new-chat-box_heading">Nuova Chat</div>
@@ -48,11 +49,14 @@
                   <i class="fas fa-circle-notch"></i>
                   <i @click="pop(true)" class="fas fa-plus"></i>
                   <i @click="settingPopUp = !settingPopUp" class="fas fa-ellipsis-h"></i>
-                  <div class="pop-up pop-up_setting" :class="{block:settingPopUp}">
-                    <ul>
-                      <li @click="contacts[active].messages = [], settingPopUp = !settingPopUp">Elimina Messaggi</li>
-                      <li>Elimina Chat</li>
-                    </ul>
+                  <!--PopUP-->
+                  <div v-if="active != null">
+                    <div class="pop-up pop-up_setting" :class="{block:settingPopUp}">
+                      <ul>
+                        <li @click="contacts[active].messages = [], settingPopUp = !settingPopUp">Elimina Messaggi</li>
+                        <li @click="deleteChat(), settingPopUp = !settingPopUp">Elimina Chat</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
