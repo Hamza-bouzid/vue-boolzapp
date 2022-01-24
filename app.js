@@ -9,7 +9,7 @@ let app = new Vue({
     staScrivendo: "",
     newChatName: "",
     newChatImage: "",
-    risposte: ["OK", "Va bene", "Ci vediamo domani", "Ciao"],
+    risposte: ["OK", "Va bene", "Ci vediamo domani", "Ciao", "mi dispiace", "sicuro"],
     contacts: [
       {
         name: "Zlatan",
@@ -212,6 +212,7 @@ let app = new Vue({
 
     deleteChat: function () {
       this.contacts.splice(this.active, 1);
+      this.active = null;
     },
   },
 
