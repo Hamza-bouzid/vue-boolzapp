@@ -48,6 +48,7 @@ Panello
 .hb_left-pannel,
 .hb_right-pannel {
   background-color: #2a2f32;
+  height: 78px;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -318,6 +319,7 @@ Messages
 .send-message i {
   color: #b1b3b5;
   font-size: 20px;
+  width: 20px;
   cursor: pointer;
 }
 
