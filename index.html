@@ -47,7 +47,13 @@
                 <div class="hb_left-pannel_icons">
                   <i class="fas fa-circle-notch"></i>
                   <i @click="pop(true)" class="fas fa-plus"></i>
-                  <i class="fas fa-ellipsis-h"></i>
+                  <i @click="settingPopUp = !settingPopUp" class="fas fa-ellipsis-h"></i>
+                  <div class="pop-up pop-up_setting" :class="{block:settingPopUp}">
+                    <ul>
+                      <li @click="contacts[active].messages = [], settingPopUp = !settingPopUp">Elimina Messaggi</li>
+                      <li>Elimina Chat</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div class="col-8 hb_right-pannel">

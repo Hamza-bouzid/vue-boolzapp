@@ -365,6 +365,11 @@ Messages
   background-color: #20272b;
 }
 
+.pop-up_setting {
+  right: 0;
+  color: #fff;
+}
+
 #scrollbar-style::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #2a2f32;

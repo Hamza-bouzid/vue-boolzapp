@@ -5,6 +5,7 @@ let app = new Vue({
     searchinput: "",
     sendmessage: "",
     newChatPopup: false,
+    settingPopUp: false,
     staScrivendo: "",
     newChatName: "",
     newChatImage: "",
@@ -164,22 +165,14 @@ let app = new Vue({
             name: this.newChatName,
             avatar: this.newChatImage,
             visible: true,
-            messages: [
-              {
-                date: dayjs().format("hh:mm"),
-              },
-            ],
+            messages: [],
           });
         } else {
           this.contacts.push({
             name: this.newChatName,
             avatar: "img/avatar-png-green.jpg",
             visible: true,
-            messages: [
-              {
-                date: dayjs().format("hh:mm"),
-              },
-            ],
+            messages: [],
           });
         }
 
@@ -200,7 +193,6 @@ let app = new Vue({
 
     deleteMessage: function (index) {
       this.contacts[this.active].messages.splice(index, 1);
-      console.log(index);
     },
 
     autoScroll: function () {
@@ -215,6 +207,10 @@ let app = new Vue({
       this.contacts.forEach((element) => {
         element.visible = element.name.toLowerCase().includes(this.searchinput);
       });
+    },
+
+    deleteChat: function (index) {
+      this.contacts[this.active].splice(index, 1);
     },
   },
 
